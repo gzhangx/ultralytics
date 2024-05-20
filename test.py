@@ -1,18 +1,22 @@
 from ultralytics import YOLO
 import cv2
 
+#data argument.py contains the loader
 # Load a pretrained YOLO model (recommended for training)
-model = YOLO('cocbest.pt')
-#path = model.export(format="onnx")
+model = YOLO('cocbest992.pt')
+path = model.export(format="onnx")
 #print('path',path)
-#results = model.train(data='/work/cur/ccauto2/yolodata/coc/yolo8.yaml', epochs=10, imgsz=640, workers=0)
 
+# 982,567 => 992
+#results = model.train(data='../yolodata/cocyolo8.yaml', epochs=100, imgsz=992, workers=0)
+
+#aa=bb
 # Perform object detection on an image using the model
 # results = model('../../../../work/cur/ccauto2/yolodata/coc/images/all/testfullimg_cap_2024-01-13-044136.png', imgsz=640, workers=0)
 
 # D:\work\cur\ccauto2\ConsoleApp1\bin\Debug\net8.0\t1.png
-imgFileName = '../../../../work/cur/ccauto2/ConsoleApp1/bin/Debug/net8.0/t1.png'
-results = model(imgFileName, imgsz=640, workers=0)
+imgFileName = '/utils/src/vision/yolodata/tt.png'
+results = model(imgFileName, imgsz=992, workers=0)
 
 print(results[0].boxes.xywh,'results.0','results[0].boxes.cls',results[0].boxes.cls)
 
