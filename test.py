@@ -1,14 +1,25 @@
 from ultralytics import YOLO
 import cv2
+import shutil
+import os
 
 #data argument.py contains the loader
 # Load a pretrained YOLO model (recommended for training)
+if os.path.exists('./runs/detect/train/weights/best.pt'):
+    print('copying best to cocbest.pt')
+    shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest992.pt')
+
+shutil.rmtree('./runs/detect/train')    
 model = YOLO('cocbest992.pt')
-path = model.export(format="onnx")
-#print('path',path)
 
 # 982,567 => 992
-#results = model.train(data='../yolodata/cocyolo8.yaml', epochs=100, imgsz=992, workers=0)
+results = model.train(data='../yolodata/cocyolo8.yaml', epochs=100, imgsz=992, workers=0)
+path = model.export(format="onnx")
+print('path',path)
+print('copy onnx to ccauto2')
+shutil.copy('runs/detect/train/weights/best.onnx', './cocbest992.onnx')
+shutil.copy('./cocbest992.onnx', '/work/cur/ccauto2/ScreenCapture/bin/Debug/cocbest992.onnx')
+
 
 #aa=bb
 # Perform object detection on an image using the model
