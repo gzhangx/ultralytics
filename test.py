@@ -19,7 +19,7 @@ print('path',path)
 print('copy onnx to ccauto2')
 shutil.copy('runs/detect/train/weights/best.onnx', './cocbest992.onnx')
 shutil.copy('./cocbest992.onnx', '/work/cur/ccauto2/ScreenCapture/bin/Debug/cocbest992.onnx')
-
+shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest992.pt')
 
 #aa=bb
 # Perform object detection on an image using the model
