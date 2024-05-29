@@ -3,9 +3,9 @@ import cv2
 import shutil
 import os
 
-model = YOLO('cocbest992.pt')
+model = YOLO('cocbest1792.pt')
 
-imgFileName = '/utils/src/vision/yolodata/tt.png'
+imgFileName = '/utils/src/vision/yolodata/captured.jpg'
 results = model(imgFileName, imgsz=992, workers=0)
 
 print(results[0].boxes.xywh,'results.0','results[0].boxes.cls',results[0].boxes.cls)

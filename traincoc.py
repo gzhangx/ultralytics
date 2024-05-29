@@ -3,23 +3,27 @@ import cv2
 import shutil
 import os
 
+modelWidth = 992
+
 #data argument.py contains the loader
 # Load a pretrained YOLO model (recommended for training)
 if os.path.exists('./runs/detect/train/weights/best.pt'):
     print('copying best to cocbest.pt')
-    shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest992.pt')
+    shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest'+str(modelWidth)+ '.pt')
 
-shutil.rmtree('./runs/detect/train')    
-model = YOLO('cocbest992.pt')
+if os.path.exists('./runs/detect/train'):
+    shutil.rmtree('./runs/detect/train')    
+    
+model = YOLO('cocbest'+str(modelWidth)+ '.pt')
 
 # 982,567 => 992
-results = model.train(data='../yolodata/cocyolo8.yaml', epochs=100, imgsz=992, workers=0)
+results = model.train(data='../yolodata/cocyolo8.yaml', epochs=100, imgsz=modelWidth, workers=0)
 path = model.export(format="onnx")
 print('path',path)
 print('copy onnx to ccauto2')
-shutil.copy('runs/detect/train/weights/best.onnx', './cocbest992.onnx')
-shutil.copy('./cocbest992.onnx', '/work/cur/ccauto2/ScreenCapture/bin/Debug/cocbest992.onnx')
-shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest992.pt')
+shutil.copy('runs/detect/train/weights/best.onnx', './cocbest'+str(modelWidth)+ '.onnx')
+shutil.copy('./cocbest'+str(modelWidth)+ '.onnx', '/work/cur/ccauto2/ScreenCapture/bin/Debug/cocbest'+str(modelWidth)+ '.onnx')
+shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest'+str(modelWidth)+ '.pt')
 
 #aa=bb
 # Perform object detection on an image using the model
@@ -27,7 +31,7 @@ shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest992.pt')
 
 # D:\work\cur\ccauto2\ConsoleApp1\bin\Debug\net8.0\t1.png
 imgFileName = '/utils/src/vision/yolodata/tt.png'
-results = model(imgFileName, imgsz=992, workers=0)
+results = model(imgFileName, imgsz=modelWidth, workers=0)
 
 print(results[0].boxes.xywh,'results.0','results[0].boxes.cls',results[0].boxes.cls)
 
