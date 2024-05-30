@@ -22,7 +22,8 @@ path = model.export(format="onnx")
 print('path',path)
 print('copy onnx to ccauto2')
 shutil.copy('runs/detect/train/weights/best.onnx', './cocbest'+str(modelWidth)+ '.onnx')
-shutil.copy('./cocbest'+str(modelWidth)+ '.onnx', '/work/cur/ccauto2/ScreenCapture/bin/Debug/cocbest'+str(modelWidth)+ '.onnx')
+# shutil.copy('./cocbest'+str(modelWidth)+ '.onnx', '/work/cur/ccauto2/ScreenCapture/bin/Debug/cocbest'+str(modelWidth)+ '.onnx')
+shutil.copy('./cocbest'+str(modelWidth)+ '.onnx', '/work/cur/ccauto2/yolodata/coc/cocbest'+str(modelWidth)+ '.onnx')
 shutil.copy('./runs/detect/train/weights/best.pt', 'cocbest'+str(modelWidth)+ '.pt')
 
 #aa=bb
